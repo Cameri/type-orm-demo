@@ -14,8 +14,4 @@ export class Tombstone {
 
   @Column()
   public AHEmail: string;
-
-//   @ManyToOne(type => WebsiteUser, user => user.tombstones)
-//   @JoinColumn({ name: 'website_user_id' })
-//   public user: WebsiteUser;
 }
