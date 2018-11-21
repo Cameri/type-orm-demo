@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
 import { Tombstone } from './tombstone';
+import { Role } from './role';
 
 @Entity()
 export class WebsiteUser {
@@ -9,6 +10,12 @@ export class WebsiteUser {
   @Column()
   public email: string;
 
-  @OneToMany(type => Tombstone, tombstone => tombstone.user)
-  public tombstones: Tombstone;
+//   @OneToMany(type => Tombstone, tombstone => tombstone.user)
+//   public tombstones: Tombstone;
+
+  @ManyToOne(type => Role, role => role.users)
+  @JoinColumn({
+      name: 'role_id'
+  })
+  public role: Role;
 }

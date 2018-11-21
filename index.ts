@@ -1,6 +1,7 @@
 import { createConnection, Connection } from 'typeorm';
 import { WebsiteUser } from './user';
 import { Tombstone } from './tombstone';
+import { Role } from './role';
 
 async function main() {
   const mysqlConnection: Connection = await createConnection({
@@ -11,7 +12,10 @@ async function main() {
     username: 'root',
     password: 'nestwealth',
     database: 'nestwealth',
-    entities: [WebsiteUser],
+    entities: [
+        WebsiteUser,
+        Role
+    ],
   });
 
   const mongoConnection: Connection = await createConnection({
@@ -29,7 +33,7 @@ async function main() {
     where: {
       id: 1,
     },
-    relations: ['tombstones'],
+    relations: ['role'],
   });
   if (!user) return;
 
