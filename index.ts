@@ -1,43 +1,6 @@
-import {
-  createConnection,
-  Connection,
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ObjectIdColumn,
-  OneToMany,
-  ManyToOne,
-} from 'typeorm';
-import { ObjectID } from 'mongodb';
-
-@Entity()
-class WebsiteUser {
-  @PrimaryGeneratedColumn()
-  public id?: number;
-
-  @Column()
-  public email: string;
-
-  @OneToMany(type => Tombstone, tombstone => tombstone.user)
-  public tombstone: Tombstone;
-}
-
-@Entity({
-  name: 'tombstones',
-})
-class Tombstone {
-  @ObjectIdColumn()
-  public id?: ObjectID;
-
-  @Column()
-  public email: string;
-
-  @Column()
-  public AHEmail: string;
-
-  @ManyToOne(type => WebsiteUser, user => user.tombstone)
-  public user: WebsiteUser;
-}
+import { createConnection, Connection } from 'typeorm';
+import { WebsiteUser } from './user';
+import { Tombstone } from './tombstone';
 
 async function main() {
   const mysqlConnection: Connection = await createConnection({
@@ -63,7 +26,10 @@ async function main() {
 
   const UserRepository = mysqlConnection.getRepository(WebsiteUser);
   const user = await UserRepository.findOne({
-    id: 1,
+    where: {
+      id: 1,
+    },
+    relations: ['tombstones'],
   });
   if (!user) return;
 
