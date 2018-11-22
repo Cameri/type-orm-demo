@@ -10,7 +10,15 @@ export class TombstoneRepository implements INwRepository<Tombstone> {
     this.typeOrmUserRepository = typeOrmTombstoneRepository;
   }
 
-  findById(id: number) {
-    return this.typeOrmUserRepository.findOne(id);
+  findById(id: string | number): Promise<Tombstone | undefined> {
+    throw new Error('Method not implemented.');
+  }
+
+  findMasterByUserId(userId: number) {
+    return this.typeOrmUserRepository.findOne({
+      where: {
+        website_user_id: userId,
+      },
+    });
   }
 }

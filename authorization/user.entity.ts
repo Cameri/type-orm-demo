@@ -7,8 +7,14 @@ import {
 } from 'typeorm';
 import { Role } from './role.entity';
 
+export interface IWebsiteUser {
+  id?: number;
+  email: string;
+  role?: Role;
+}
+
 @Entity()
-export class WebsiteUser {
+export class WebsiteUser implements IWebsiteUser {
   @PrimaryGeneratedColumn()
   public id?: number;
 
@@ -21,5 +27,5 @@ export class WebsiteUser {
   @JoinColumn({
     name: 'role_id',
   })
-  public role: Role;
+  public role?: Role;
 }

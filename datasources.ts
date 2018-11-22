@@ -1,7 +1,7 @@
 import { Connection, createConnection } from 'typeorm';
 import { WebsiteUser } from './authorization/user.entity';
 import { Role } from './authorization/role.entity';
-import { Tombstone } from './demographics/tombstone';
+import { TombstoneEntity } from './demographics/tombstone.entity';
 
 export class Datasources {
   mysql: Connection;
@@ -26,7 +26,7 @@ export class Datasources {
       port: 27017,
       database: 'nestwealth',
       useNewUrlParser: true,
-      entities: [Tombstone],
+      entities: [TombstoneEntity],
     });
 
     const [mysql, mongo] = await Promise.all([

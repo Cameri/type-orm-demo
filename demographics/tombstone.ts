@@ -1,16 +1,14 @@
-import { Entity, Column, ObjectIdColumn } from 'typeorm';
+import { Entity } from 'typeorm';
 import { ObjectID } from 'mongodb';
 
-@Entity({
-  name: 'tombstones',
-})
-export class Tombstone {
-  @ObjectIdColumn()
+export interface ITombstone {
+  id?: ObjectID;
+  AHEmail: string;
+  website_user_id: string;
+}
+
+export class Tombstone implements ITombstone {
   public id?: ObjectID;
-
-  @Column()
-  public email: string;
-
-  @Column()
   public AHEmail: string;
+  public website_user_id: string;
 }
