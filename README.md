@@ -5,5 +5,7 @@ potential for business and data access layer decoupling via Repository and Servi
 
 ## Get started
 
+You should have your MySQL and Mongo servers running. 
+
 `npm i && npm start`
 
