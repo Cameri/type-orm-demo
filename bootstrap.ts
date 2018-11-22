@@ -1,9 +1,7 @@
 import { Datasources } from './datasources';
-import { UserRepository } from './authorization/user.repository';
 import { WebsiteUser } from './authorization/user.entity';
-import { TombstoneRepository } from './demographics/tombstone.repository';
 import { AuthorizationService } from './authorization/authorization.service';
-import { TombstoneEntity } from './demographics/tombstone';
+import { TombstoneEntity } from './demographics/tombstone.entity';
 
 /**
  * In a real project this function will be broken down to
@@ -16,13 +14,11 @@ export async function bootstrap() {
   const mysql = datasources.getMysqlConnection();
   const mongo = datasources.getMongoConnection();
   // wire up repositories and services, this would normally be done thru dependency injection
-  const userRepository = new UserRepository(mysql.getRepository(WebsiteUser));
-  const tombstoneRepository = new TombstoneRepository(
-    mongo.getMongoRepository(TombstoneEntity),
-  );
+  const userRepository = mysql.getRepository(WebsiteUser);
+  const tombstoneRepository = mongo.getMongoRepository(TombstoneEntity);
   const authorizationService = new AuthorizationService(
     userRepository,
-    tombstoneRepository,
+    tombstoneRepository
   );
   return {
     authorizationService,
