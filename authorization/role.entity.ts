@@ -1,8 +1,13 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { WebsiteUser } from './user.entity';
+import { WebsiteUser, IWebsiteUser } from './user.entity';
 
+export interface IRole {
+  id?: number;
+  name: string;
+  users?: IWebsiteUser[];
+}
 @Entity({ name: 'Roles' })
-export class Role {
+export class Role implements IRole {
   @PrimaryGeneratedColumn()
   public id?: number;
 
@@ -10,5 +15,5 @@ export class Role {
   public name: string;
 
   @OneToMany(type => WebsiteUser, user => user.role)
-  public users: WebsiteUser;
+  public users: WebsiteUser[];
 }
