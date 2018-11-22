@@ -19,7 +19,7 @@ export class Client implements IClient {
   public id?: string;
 
   @Column()
-  public email: string;
+  public custodian_id: string;
 
 //   @OneToOne(type => WebsiteUser, user => user.client, {
 //     eager: true,
