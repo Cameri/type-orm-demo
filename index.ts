@@ -1,48 +1,8 @@
-import { createConnection, Connection } from 'typeorm';
-import { WebsiteUser } from './user';
-import { Tombstone } from './tombstone';
-import { Role } from './role';
+import { Datasources } from './datasources';
 
 async function main() {
-  const mysqlConnection: Connection = await createConnection({
-    name: 'mysql',
-    type: 'mysql',
-    host: 'localhost',
-    port: 3306,
-    username: 'root',
-    password: 'nestwealth',
-    database: 'nestwealth',
-    entities: [
-        WebsiteUser,
-        Role
-    ],
-  });
-
-  const mongoConnection: Connection = await createConnection({
-    name: 'mongodb',
-    type: 'mongodb',
-    host: 'localhost',
-    port: 27017,
-    database: 'nestwealth',
-    useNewUrlParser: true,
-    entities: [Tombstone],
-  });
-
-  const UserRepository = mysqlConnection.getRepository(WebsiteUser);
-  const user = await UserRepository.findOne({
-    where: {
-      id: 1,
-    },
-    relations: ['role'],
-  });
-  if (!user) return;
-
-  // const TombstoneRepository = mongoConnection.getMongoRepository(Tombstone);
-
-  // const [tombstone] = await TombstoneRepository.findByIds([new ObjectID('5841d8f3f3f0e7581c7bca54')]);
-
-  console.log(user);
-  // console.log(tombstone);
+  const datasources = new Datasources();
+  await datasources.init();
 }
 
 main()
