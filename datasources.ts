@@ -1,5 +1,5 @@
 import { Connection, createConnection } from 'typeorm';
-import { TombstoneEntity } from './demographics/tombstone.entity';
+import { TombstoneEntity } from './demographics/tombstone';
 
 export class Datasources {
   mysql: Connection;
