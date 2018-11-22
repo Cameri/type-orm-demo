@@ -1,3 +1,3 @@
-export interface INwRepository<T> {
-  findById(id: string | number): Promise<T | undefined>;
+export interface INwRepository<TEntity> {
+  findById(id: string | number): Promise<TEntity | undefined>;
 }
