@@ -1,6 +1,4 @@
 import { Connection, createConnection } from 'typeorm';
-import { WebsiteUser } from './authorization/user.entity';
-import { Role } from './authorization/role.entity';
 import { TombstoneEntity } from './demographics/tombstone.entity';
 
 export class Datasources {
@@ -16,7 +14,8 @@ export class Datasources {
       username: 'root',
       password: 'nestwealth',
       database: 'nestwealth',
-      entities: [WebsiteUser, Role],
+      // entities can be located by glob patterns
+      entities: ['./authorization/*.entity.ts'],
     });
 
     const mongoConnectionPromise = createConnection({
@@ -26,6 +25,7 @@ export class Datasources {
       port: 27017,
       database: 'nestwealth',
       useNewUrlParser: true,
+      // or imported explicitly
       entities: [TombstoneEntity],
     });
 

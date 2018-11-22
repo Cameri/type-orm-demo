@@ -8,17 +8,27 @@ export interface IUserInfoDto {
   tombstone: ITombstone;
 }
 
+/**
+ * A business layer service responsible for high level operations
+ */
 export class AuthorizationService {
   private userRepository: UserRepository;
   private tombstoneRepository: TombstoneRepository;
   constructor(
     userRepository: UserRepository,
-    tombstoneRepository: TombstoneRepository,
+    /**
+     * `tombstoneRepository` can be replaced with a tombstoneService 
+     * that could be a microservice or a local module
+     */
+    tombstoneRepository: TombstoneRepository, 
   ) {
     this.tombstoneRepository = tombstoneRepository;
     this.userRepository = userRepository;
   }
 
+  /**
+   * This method demostrates cross-db querying.
+   */
   async getUserInfo(id: number): Promise<IUserInfoDto> {
     const user = await this.userRepository.findById(id);
     if (!user) throw new Error('User not found');
