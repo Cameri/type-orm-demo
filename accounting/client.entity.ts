@@ -21,11 +21,6 @@ export class Client implements IClient {
   @Column()
   public custodian_id: string;
 
-//   @OneToOne(type => WebsiteUser, user => user.client, {
-//     eager: true,
-//   })
-//   @JoinColumn({
-//     name: 'client_id',
-//   })
-//   public user?: IWebsiteUser;
+  @OneToOne(() => WebsiteUser, user => user.client)
+  public user?: IWebsiteUser;
 }

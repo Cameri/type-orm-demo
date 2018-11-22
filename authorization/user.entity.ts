@@ -6,13 +6,13 @@ import {
   JoinColumn,
   OneToOne,
 } from 'typeorm';
-import { Role } from './role.entity';
+import { Role, IRole } from './role.entity';
 import { IClient, Client } from '../accounting/client.entity';
 
 export interface IWebsiteUser {
   id?: number;
   email: string;
-  role?: Role;
+  role?: IRole;
   client?: IClient;
 }
 
@@ -30,10 +30,10 @@ export class WebsiteUser implements IWebsiteUser {
   @JoinColumn({
     name: 'role_id',
   })
-  public role?: Role;
+  public role?: IRole;
 
   @OneToOne(type => Client, {
-    eager: true
+    eager: true,
   })
   @JoinColumn({
     name: 'client_id',
