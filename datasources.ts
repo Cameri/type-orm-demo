@@ -15,7 +15,7 @@ export class Datasources {
       password: 'nestwealth',
       database: 'nestwealth',
       // entities can be located by glob patterns
-      entities: ['./authorization/*.entity.ts'],
+      entities: ['./authorization/*.entity.ts', './accounting/*.entity.ts'],
     });
 
     const mongoConnectionPromise = createConnection({
